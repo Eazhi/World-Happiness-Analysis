@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Kaggle setup
+        run: |
+          python -m venv env
+          . env/bin/activate
+
+          # To make it wort in the CI
+          pip install --upgrade wheel
+
+          pip install kaggle
+
+          echo "Downloading dataset"
+          kaggle datasets download -d unsdsn/world-happiness
+          mkdir -p data
+          unzip world-happiness.zip -d data
+        env:
+          KAGGLE_USERNAME: ${{ secrets.KAGGLE_USERNAME }}
+          KAGGLE_KEY: ${{ secrets.KAGGLE_KEY }}
+
+      - name: Build html report
+        run: |
+          python -m venv env
+          . env/bin/activate
+
+          # To make it wort in the CI
+          pip install --upgrade wheel
+
+          pip install -r requirements.txt
+          jupyter nbconvert --execute --to html analysis.ipynb
+      - uses: actions/upload-artifact@v1
+        with:
+          name: analysis.html
+          path: analysis.html
