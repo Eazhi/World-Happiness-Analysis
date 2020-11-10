@@ -10,3 +10,5 @@ htmlcov
 
 env/
 .ipynb_checkpoints/
+data/
+world-happiness.zip
