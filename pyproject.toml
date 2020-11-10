@@ -2,5 +2,4 @@
 black = "pyproject.toml"
 
 [tool.nbqa.mutate]
-isort = 1
 black = 1
