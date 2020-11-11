@@ -12,3 +12,6 @@ env/
 .ipynb_checkpoints/
 data/
 world-happiness.zip
+
+decision_tree
+*.png
