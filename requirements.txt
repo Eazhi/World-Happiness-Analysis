@@ -1,7 +1,8 @@
+graphviz
 jupyter
 notebook
 numpy
 pandas
 seaborn
 sklearn
-graphviz
+streamlit
